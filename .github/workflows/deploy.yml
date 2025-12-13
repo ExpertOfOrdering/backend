@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "ExpertOfOrdering/build/libs/backend-0.0.1-SNAPSHOT.jar"
-          target: "/home/ubuntu/app.jar"
+          target: "/home/ubuntu/"
 
       - name: Restart app on EC2
         uses: appleboy/ssh-action@v1.0.3
@@ -52,4 +52,6 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo systemctl restart expert-backend-${{ steps.profile.outputs.profile }}
+            sudo systemctl stop expert-backend-${{ steps.profile.outputs.profile }} || true
+            mv /home/ubuntu/backend-0.0.1-SNAPSHOT.jar /home/ubuntu/app.jar
+            sudo systemctl start expert-backend-${{ steps.profile.outputs.profile }}
