@@ -15,7 +15,3 @@ springdoc:
     enabled: false
   swagger-ui:
     enabled: false
-
-jwt:
-  secret: "${JWT_SECRET}"
-  access-token-validity-ms: 3600000
