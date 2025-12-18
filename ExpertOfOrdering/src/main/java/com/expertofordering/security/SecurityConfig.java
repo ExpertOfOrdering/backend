@@ -28,15 +28,9 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * CORS를 Security 레벨에서 처리 (Swagger Try it out, 프론트 호출에 필수)
-     * allowedOrigins는 application-*.yml에서 바꾸기 쉽게 프로퍼티로 두는 걸 권장.
-     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        // TODO: 아래는 예시. 실제 dev/main 도메인으로 바꿔서 넣거나,
-        //       WebConfig에 이미 CORS가 있다면 여기를 그 설정과 동일하게 맞추기.
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:*",
                 "https://YOUR-DEV-DOMAIN",
@@ -79,7 +73,6 @@ public class SecurityConfig {
                         .requestMatchers("/health").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // Swagger (Security 추가 시 여기 열어줘야 안 막힘)
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
 
                         .anyRequest().authenticated()
