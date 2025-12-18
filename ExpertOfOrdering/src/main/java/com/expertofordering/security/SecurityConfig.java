@@ -2,6 +2,7 @@ package com.expertofordering.security;
 
 import com.expertofordering.security.jwt.JwtAuthenticationFilter;
 import com.expertofordering.security.jwt.JwtProperties;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.*;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Configuration
@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // 기본 폼 로그인/기본 인증 끄기 (JWT API 서버용)
+                // JWT API 서버용: 폼 로그인/기본 인증 끄기
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
 
@@ -69,11 +69,19 @@ public class SecurityConfig {
                         // preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // public endpoints
+                        // error 엔드포인트(없는 URL 접근 시 401처럼 보이는 문제 방지)
+                        .requestMatchers("/error").permitAll()
+
+                        // health / auth 는 공개
                         .requestMatchers("/health").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        // swagger 공개(필요 시 dev에서만)
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+
+                        // actuator 쓰면 열기(원하면 dev에서만)
+                        .requestMatchers("/actuator/health", "/actuator/info").permitAll()
+                        .requestMatchers("/actuator/mappings").permitAll()
 
                         .anyRequest().authenticated()
                 )
