@@ -19,6 +19,7 @@ public class PracticeLog {
     private User user;
 
     // 2025-10 이런식으로 저장함
+    @Column(name = "log_year_month")
     private String yearMonth;
     private int DurationSec;
     private boolean isSuccess;

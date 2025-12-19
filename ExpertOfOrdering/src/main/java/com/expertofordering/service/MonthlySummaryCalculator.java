@@ -58,7 +58,7 @@ public class MonthlySummaryCalculator {
             int avgDurationSec
     ) {
         if (practiceCount <= 5) {
-            return Difficulty.초보;
+            return Difficulty.BEGINNER;
         }
 
         int successScore = calculateSuccessScore(avgSuccessRate);
@@ -67,11 +67,11 @@ public class MonthlySummaryCalculator {
         int totalScore = successScore + durationScore;
 
         if (totalScore <= 3) {
-            return Difficulty.초보;
+            return Difficulty.BEGINNER;
         } else if (totalScore <= 5) {
-            return Difficulty.중수;
+            return Difficulty.INTERMEDIATE;
         } else {
-            return Difficulty.달인;
+            return Difficulty.EXPERT;
         }
     }
 
