@@ -12,10 +12,10 @@ spring:
 
   # MySQL 데이터베이스 설정
   datasource:
-    url: jdbc:mysql://localhost:3306/expertofordering
+    url: ${DB_URL:jdbc:mysql://localhost:3306/expertofordering}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: plink2025
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
 
   jpa:
     hibernate:
