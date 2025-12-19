@@ -8,3 +8,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+
+jwt:
+  secret: "test-secret-test-secret-test-secret-1234"  # 32바이트 이상 아무거나
+  access-token-validity-ms: 3600000
