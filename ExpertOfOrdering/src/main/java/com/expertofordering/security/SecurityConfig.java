@@ -2,6 +2,7 @@ package com.expertofordering.security;
 
 import com.expertofordering.security.jwt.JwtAuthenticationFilter;
 import com.expertofordering.security.jwt.JwtProperties;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.*;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Configuration
@@ -28,15 +28,9 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * CORS를 Security 레벨에서 처리 (Swagger Try it out, 프론트 호출에 필수)
-     * allowedOrigins는 application-*.yml에서 바꾸기 쉽게 프로퍼티로 두는 걸 권장.
-     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        // TODO: 아래는 예시. 실제 dev/main 도메인으로 바꿔서 넣거나,
-        //       WebConfig에 이미 CORS가 있다면 여기를 그 설정과 동일하게 맞추기.
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:*",
                 "https://YOUR-DEV-DOMAIN",
@@ -59,7 +53,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // 기본 폼 로그인/기본 인증 끄기 (JWT API 서버용)
+                // JWT API 서버용: 폼 로그인/기본 인증 끄기
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
 
@@ -75,12 +69,19 @@ public class SecurityConfig {
                         // preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // public endpoints
+                        // error 엔드포인트(없는 URL 접근 시 401처럼 보이는 문제 방지)
+                        .requestMatchers("/error").permitAll()
+
+                        // health / auth 는 공개
                         .requestMatchers("/health").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // Swagger (Security 추가 시 여기 열어줘야 안 막힘)
+                        // swagger 공개(필요 시 dev에서만)
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+
+                        // actuator 쓰면 열기(원하면 dev에서만)
+                        .requestMatchers("/actuator/health", "/actuator/info").permitAll()
+                        .requestMatchers("/actuator/mappings").permitAll()
 
                         .anyRequest().authenticated()
                 )

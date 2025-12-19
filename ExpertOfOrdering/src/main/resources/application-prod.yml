@@ -3,9 +3,19 @@ spring:
     activate:
       on-profile: prod
 
+  datasource:
+    url: ${DB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
   jpa:
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: false
+        show_sql: false
 
 server:
   port: 8080
