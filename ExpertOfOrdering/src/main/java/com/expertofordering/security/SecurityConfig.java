@@ -76,6 +76,11 @@ public class SecurityConfig {
                         .requestMatchers("/health").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        // 웹소켓 연결 허용
+                        .requestMatchers("/ws/**").permitAll()
+                        .requestMatchers("/test").permitAll()
+                        .requestMatchers("/favicon.ico").permitAll()
+
                         // swagger 공개(dev에서만)
                         .requestMatchers(
                                 "/swagger",

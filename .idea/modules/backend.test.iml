@@ -20,6 +20,7 @@
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:3.5.7" level="project" />
     <orderEntry type="library" name="Gradle: org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.7" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-validation:3.5.7" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-websocket:3.5.7" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:3.5.7" level="project" />
     <orderEntry type="library" name="Gradle: com.h2database:h2:2.3.232" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-security:3.5.7" level="project" />
@@ -36,6 +37,8 @@
     <orderEntry type="library" name="Gradle: org.webjars:webjars-locator-lite:1.1.2" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:10.1.48" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate.validator:hibernate-validator:8.0.3.Final" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-websocket:6.2.12" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-messaging:6.2.12" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:3.5.7" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:3.5.7" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:6.2.12" level="project" />
