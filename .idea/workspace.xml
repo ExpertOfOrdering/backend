@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="147a3035-d4e5-468d-be30-566881412c47" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/758204b3-92a8-4740-a1a3-94d0be761119.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/758204b3-92a8-4740-a1a3-94d0be761119.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/MypageResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/MypageResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/entity/Difficulty.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/entity/Difficulty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/MypageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/MypageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +48,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="feat4-mypage" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,7 +74,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ExpertOfOrderingApplication (1).executor": "Run",
     "Spring Boot.ExpertOfOrderingApplication.executor": "Run",
-    "git-widget-placeholder": "feat4-mypage",
+    "git-widget-placeholder": "feat8-api",
     "last_opened_file_path": "C:/Users/owner/Desktop/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -102,6 +100,7 @@
     <configuration name="ExpertOfOrderingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
         <env name="DB_PASSWORD" value="plink2025" />
+        <env name="OPENAI_API_KEY" value="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" />
       </envs>
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="backend.main" />
@@ -139,7 +138,7 @@
       <workItem from="1766124088555" duration="418000" />
       <workItem from="1766124545454" duration="28000" />
       <workItem from="1766124590852" duration="1977000" />
-      <workItem from="1766209763063" duration="6011000" />
+      <workItem from="1766209763063" duration="7199000" />
     </task>
     <servers />
   </component>

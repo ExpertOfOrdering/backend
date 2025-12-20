@@ -34,18 +34,20 @@ public class MypageResponse {
         // "회" 붙이기
         this.practiceCount = mypage.getPracticeCount() + "회";
         
-        // "%" 붙이기
+        // "%" 붙이기 (int -> String 변환)
         this.avgSuccessRate = mypage.getAvgSuccessRate() + "%";
         
-        // 초 -> "X분 Y초" 변환
+        // 초 -> "X분 Y초" 또는 "Y초" 변환
         int totalSec = mypage.getAvgDurationSec();
         int min = totalSec / 60;
         int sec = totalSec % 60;
-        if (min==0){
-            this.avgDuration = sec + "초";
-        } else {
+        
+        if (min > 0) {
             this.avgDuration = min + "분 " + sec + "초";
+        } else {
+            this.avgDuration = sec + "초";
         }
+
         this.recommendDifficulty = mypage.getRecommendDifficulty();
     }
 }
