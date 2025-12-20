@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="147a3035-d4e5-468d-be30-566881412c47" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/config/WebSocketConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/handler/ChatWebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/backend.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/backend.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/backend.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/backend.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/MypageResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/MypageResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/security/jwt/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/security/jwt/JwtAuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,12 +30,26 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/ExpertOfOrdering">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="backend" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -40,15 +62,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat4-mypage" />
+        <entry key="$PROJECT_DIR$" value="feat8-api" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,6 +85,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.ExpertOfOrdering [bootJar].executor": "Run",
     "Gradle.ExpertOfOrdering 빌드.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
@@ -74,7 +97,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ExpertOfOrderingApplication (1).executor": "Run",
     "Spring Boot.ExpertOfOrderingApplication.executor": "Run",
-    "git-widget-placeholder": "feat8-api",
+    "git-widget-placeholder": "feat10-chat",
     "last_opened_file_path": "C:/Users/owner/Desktop/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -89,6 +112,28 @@
   }
 }]]></component>
   <component name="RunManager" selected="Spring Boot.ExpertOfOrderingApplication">
+    <configuration name="ExpertOfOrdering [bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ExpertOfOrdering" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="bootJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="ExpertOfOrderingApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="com.expertofordering.backend.main" />
@@ -110,9 +155,15 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Gradle.ExpertOfOrdering [bootJar]" />
       <item itemvalue="Spring Boot.ExpertOfOrderingApplication" />
       <item itemvalue="Spring Boot.ExpertOfOrderingApplication (1)" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.ExpertOfOrdering [bootJar]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -138,7 +189,8 @@
       <workItem from="1766124088555" duration="418000" />
       <workItem from="1766124545454" duration="28000" />
       <workItem from="1766124590852" duration="1977000" />
-      <workItem from="1766209763063" duration="7199000" />
+      <workItem from="1766209763063" duration="14885000" />
+      <workItem from="1766233993757" duration="6535000" />
     </task>
     <servers />
   </component>
