@@ -76,8 +76,16 @@ public class SecurityConfig {
                         .requestMatchers("/health").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // swagger 공개(필요 시 dev에서만)
-                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+                        // swagger 공개(dev에서만)
+                        .requestMatchers(
+                                "/swagger",
+                                "/swagger/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
+                        ).permitAll()
+
+
 
                         // actuator 쓰면 열기(원하면 dev에서만)
                         .requestMatchers("/actuator/health", "/actuator/info").permitAll()
