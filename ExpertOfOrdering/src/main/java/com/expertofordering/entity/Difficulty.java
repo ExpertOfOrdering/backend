@@ -1,7 +1,7 @@
 package com.expertofordering.entity;
 
 public enum Difficulty {
-    BEGINNER,
-    INTERMEDIATE,
-    EXPERT
+    초보,
+    중수,
+    달인
 }

@@ -15,14 +15,14 @@ public class MypageResponse {
     @Schema(description = "Year and month of the summary", example = "2025-10")
     private final String yearMonth;
 
-    @Schema(description = "Total practice count in the month", example = "15")
-    private final int practiceCount;
+    @Schema(description = "Total practice count in the month", example = "15회")
+    private final String practiceCount;
 
-    @Schema(description = "Average success rate (%)", example = "85")
-    private final int avgSuccessRate;
+    @Schema(description = "Average success rate (%)", example = "85%")
+    private final String avgSuccessRate;
 
-    @Schema(description = "Average duration in seconds", example = "120")
-    private final int avgDurationSec;
+    @Schema(description = "Average duration", example = "2분 0초")
+    private final String avgDuration;
 
     @Schema(description = "Recommended difficulty for the next practice", example = "중수")
     private final Difficulty recommendDifficulty;
@@ -30,9 +30,22 @@ public class MypageResponse {
     public MypageResponse(Mypage mypage) {
         this.id = mypage.getId();
         this.yearMonth = mypage.getYearMonth();
-        this.practiceCount = mypage.getPracticeCount();
-        this.avgSuccessRate = mypage.getAvgSuccessRate();
-        this.avgDurationSec = mypage.getAvgDurationSec();
+        
+        // "회" 붙이기
+        this.practiceCount = mypage.getPracticeCount() + "회";
+        
+        // "%" 붙이기
+        this.avgSuccessRate = mypage.getAvgSuccessRate() + "%";
+        
+        // 초 -> "X분 Y초" 변환
+        int totalSec = mypage.getAvgDurationSec();
+        int min = totalSec / 60;
+        int sec = totalSec % 60;
+        if (min==0){
+            this.avgDuration = sec + "초";
+        } else {
+            this.avgDuration = min + "분 " + sec + "초";
+        }
         this.recommendDifficulty = mypage.getRecommendDifficulty();
     }
 }

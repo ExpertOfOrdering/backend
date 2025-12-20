@@ -73,7 +73,8 @@ public class MypageService {
             int avgDurationSec
     ) {
         if (practiceCount <= 5) {
-            return Difficulty.BEGINNER;
+            // 이거 추후 수정해야함
+            return Difficulty.초보;
         }
 
         int successScore = calculateSuccessScore(avgSuccessRate);
@@ -82,11 +83,11 @@ public class MypageService {
         int totalScore = successScore + durationScore;
 
         if (totalScore <= 3) {
-            return Difficulty.BEGINNER;
+            return Difficulty.초보;
         } else if (totalScore <= 5) {
-            return Difficulty.INTERMEDIATE;
+            return Difficulty.중수;
         } else {
-            return Difficulty.EXPERT;
+            return Difficulty.달인;
         }
     }
 
