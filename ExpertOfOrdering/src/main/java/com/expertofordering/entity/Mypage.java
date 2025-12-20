@@ -33,5 +33,10 @@ public class Mypage {
     @Enumerated(EnumType.STRING)
     private Difficulty recommendDifficulty;
 
-
+    public void update(int practiceCount, int avgSuccessRate, int avgDurationSec, Difficulty recommendDifficulty) {
+        this.practiceCount = practiceCount;
+        this.avgSuccessRate = avgSuccessRate;
+        this.avgDurationSec = avgDurationSec;
+        this.recommendDifficulty = recommendDifficulty;
+    }
 }

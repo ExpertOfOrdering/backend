@@ -22,5 +22,7 @@ public class PracticeLog {
     @Column(name = "log_year_month")
     private String yearMonth;
     private int DurationSec;
-    private boolean isSuccess;
+    
+    // 주문 정확도 (0 ~ 100%)
+    private int accuracy;
 }
