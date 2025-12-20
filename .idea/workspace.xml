@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="147a3035-d4e5-468d-be30-566881412c47" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/ChatController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/ChatRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/ChatResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/OpenAiService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/MypageResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/MypageResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +51,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat4-mypage" />
+        <entry key="$PROJECT_DIR$" value="feat8-api" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -74,7 +77,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ExpertOfOrderingApplication (1).executor": "Run",
     "Spring Boot.ExpertOfOrderingApplication.executor": "Run",
-    "git-widget-placeholder": "feat8-api",
+    "git-widget-placeholder": "feat10-chat",
     "last_opened_file_path": "C:/Users/owner/Desktop/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -138,7 +141,7 @@
       <workItem from="1766124088555" duration="418000" />
       <workItem from="1766124545454" duration="28000" />
       <workItem from="1766124590852" duration="1977000" />
-      <workItem from="1766209763063" duration="7199000" />
+      <workItem from="1766209763063" duration="10001000" />
     </task>
     <servers />
   </component>
