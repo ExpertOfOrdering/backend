@@ -27,7 +27,7 @@ public class MypageController {
 
     private final MypageService mypageService;
 
-    @Operation(summary = "Get Monthly Summary", description = "Retrieve the monthly practice summary for the logged-in user. (Calculates on the fly)")
+    @Operation(summary = "Get Monthly Summary", description = "사용자의 월별 연습기록을 계산하여 반환합니다. (Calculates on the fly) <br><br> **Note:** 헤더에 JWT토큰  'Authorization: Bearer {token}' 이 형태로 넣어야 합니다!")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Successfully retrieved",
                     content = @Content(mediaType = "application/json",
