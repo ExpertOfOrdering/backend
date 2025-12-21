@@ -1,5 +1,6 @@
 package com.expertofordering.service;
 
+import com.expertofordering.dto.PracticeLogRequest;
 import com.expertofordering.entity.Difficulty;
 import com.expertofordering.entity.Mypage;
 import com.expertofordering.entity.PracticeLog;
@@ -23,16 +24,30 @@ public class MypageService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Mypage getMonthlySummary(Long userId, String yearMonth) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+    public void savePracticeLog(String username, PracticeLogRequest request) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with username: " + username));
+
+        PracticeLog newLog = PracticeLog.builder()
+                .user(user)
+                .yearMonth(request.getYearMonth())
+                .DurationSec(request.getDurationSec())
+                .accuracy(request.getAccuracy())
+                .build();
+
+        practiceLogRepository.save(newLog);
+    }
+
+    @Transactional
+    public Mypage getMonthlySummary(String username, String yearMonth) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with username: " + username));
 
         List<PracticeLog> logs =
-                practiceLogRepository.findByUserIdAndYearMonth(userId, yearMonth);
+                practiceLogRepository.findByUserIdAndYearMonth(user.getId(), yearMonth);
 
         int totalCount = logs.size();
         
-        // 평균 정확도 계산 (각 로그의 accuracy 평균)
         int avgAccuracy = (int) logs.stream()
                 .mapToInt(PracticeLog::getAccuracy)
                 .average()
@@ -45,16 +60,13 @@ public class MypageService {
         
         Difficulty difficulty = recommendDifficulty(totalCount, avgAccuracy, avgDurationSec);
 
-        // 이미 존재하는 Mypage가 있는지 확인
-        Optional<Mypage> existingMypage = mypageRepository.findByUser_IdAndYearMonth(userId, yearMonth);
+        Optional<Mypage> existingMypage = mypageRepository.findByUser_IdAndYearMonth(user.getId(), yearMonth);
 
         if (existingMypage.isPresent()) {
-            // 있으면 업데이트
             Mypage mypage = existingMypage.get();
             mypage.update(totalCount, avgAccuracy, avgDurationSec, difficulty);
             return mypage;
         } else {
-            // 없으면 새로 생성
             Mypage newMypage = Mypage.builder()
                     .user(user)
                     .yearMonth(yearMonth)
@@ -73,7 +85,6 @@ public class MypageService {
             int avgDurationSec
     ) {
         if (practiceCount <= 5) {
-            // 이거 추후 수정해야함
             return Difficulty.초보;
         }
 
@@ -99,7 +110,6 @@ public class MypageService {
         } else {
             return 3;
         }
-
     }
 
     private int calculateDurationScore(int avgDurationSec) {
@@ -110,6 +120,5 @@ public class MypageService {
         } else {
             return 3;
         }
-
     }
 }
