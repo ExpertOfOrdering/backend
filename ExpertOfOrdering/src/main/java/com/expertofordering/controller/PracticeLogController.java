@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Practice Log", description = "Endpoints for managing practice logs")
+@Tag(name = "Practice Log", description = "연습 로그 API")
 @RestController
 @RequestMapping("/api/practice-logs")
 @RequiredArgsConstructor

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Mypage", description = "Mypage data endpoints")
+@Tag(name = "Mypage", description = "마이페이지(연습기록) API")
 @RestController
 @RequestMapping("/api/mypage")
 @RequiredArgsConstructor

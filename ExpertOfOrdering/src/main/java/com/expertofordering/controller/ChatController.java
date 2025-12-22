@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Chat", description = "OpenAI Chatbot endpoints")
+@Tag(name = "Chat", description = "OpenAI 챗봇 API")
 @RestController
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor
