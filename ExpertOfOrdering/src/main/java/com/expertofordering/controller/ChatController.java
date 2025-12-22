@@ -23,7 +23,7 @@ public class ChatController {
 
     @Operation(
             summary = "Get Chatbot Response",
-            description = "챗봇에게 질문을 합니다. <br><br> **Note:** 헤더에 JWT토큰  'Authorization: Bearer {token}' 이 형태로 넣어야 합니다!",
+            description = "챗봇에게 질문을 합니다. <br><br> **Note:** 헤더에 JWT토큰  'Authorization: Bearer {token}' 이 형태로 넣어야 합니다! <br><br> **Note:** 웹소켓 주소는 wss://expertofordering-dev.duckdns.org/ws/chat 입니다." ,
             requestBody = @RequestBody(
                     description = "User's question for the chatbot.",
                     required = true,
