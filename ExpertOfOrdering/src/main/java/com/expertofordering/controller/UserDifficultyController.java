@@ -29,7 +29,7 @@ public class UserDifficultyController {
 
     @Operation(
             summary = "초기 추천 난이도 설정",
-            description = "회원가입 후, 사용자의 초기 테스트 점수를 기반으로 추천 난이도를 설정합니다. (최초 1회 호출) <br><br> **Note:** 헤더에 JWT 토큰이 필요합니다.",
+            description = "회원가입 후, 사용자의 초기 테스트 점수를 기반으로 추천 난이도를 설정합니다. (최초 1회 호출) <br><br> **Note:** 헤더에 JWT토큰  'Authorization: Bearer {token}' 이 형태로 넣어야 합니다!",
             requestBody = @RequestBody(
                     description = "초기 테스트 결과로 계산된 점수",
                     required = true,

@@ -1,9 +1,11 @@
 package com.expertofordering.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Test Controller", description = "챗봇 구현 테스트를 위해 임의로 만든 것이므로 신경쓰지 않으셔도 됩니다!")
 @RestController
 public class TestController {
 
