@@ -90,8 +90,6 @@ public class SecurityConfig {
                                 "/v3/api-docs/**"
                         ).permitAll()
 
-
-
                         // actuator 쓰면 열기(원하면 dev에서만)
                         .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                         .requestMatchers("/actuator/mappings").permitAll()
