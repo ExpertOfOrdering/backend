@@ -22,6 +22,7 @@ public class MypageService {
     private final MypageRepository mypageRepository;
     private final PracticeLogRepository practiceLogRepository;
     private final UserRepository userRepository;
+    private final UserDifficultyService userDifficultyService;
 
     @Transactional
     public void savePracticeLog(String username, PracticeLogRequest request) {
@@ -58,13 +59,22 @@ public class MypageService {
                 .average()
                 .orElse(0);
         
-        Difficulty difficulty = recommendDifficulty(totalCount, avgAccuracy, avgDurationSec);
+        Difficulty monthlyRecommendDifficulty;
+
+        if (totalCount <= 5) {
+            // 기록이 5개 이하이면, 현재 난이도를 그대로 사용하고 업데이트하지 않음
+            monthlyRecommendDifficulty = userDifficultyService.getCurrentDifficulty(username).getCurrentRecommendedDifficulty();
+        } else {
+            // 기록이 5개를 초과하면, 새로운 난이도를 계산하고 현재 난이도를 업데이트
+            monthlyRecommendDifficulty = recommendDifficulty(avgAccuracy, avgDurationSec);
+            userDifficultyService.updateCurrentDifficulty(user.getId(), monthlyRecommendDifficulty);
+        }
 
         Optional<Mypage> existingMypage = mypageRepository.findByUser_IdAndYearMonth(user.getId(), yearMonth);
 
         if (existingMypage.isPresent()) {
             Mypage mypage = existingMypage.get();
-            mypage.update(totalCount, avgAccuracy, avgDurationSec, difficulty);
+            mypage.update(totalCount, avgAccuracy, avgDurationSec, monthlyRecommendDifficulty);
             return mypage;
         } else {
             Mypage newMypage = Mypage.builder()
@@ -73,21 +83,13 @@ public class MypageService {
                     .practiceCount(totalCount)
                     .avgSuccessRate(avgAccuracy)
                     .avgDurationSec(avgDurationSec)
-                    .recommendDifficulty(difficulty)
+                    .recommendDifficulty(monthlyRecommendDifficulty)
                     .build();
             return mypageRepository.save(newMypage);
         }
     }
 
-    private Difficulty recommendDifficulty(
-            int practiceCount,
-            int avgSuccessRate,
-            int avgDurationSec
-    ) {
-        if (practiceCount <= 5) {
-            return Difficulty.초보;
-        }
-
+    private Difficulty recommendDifficulty(int avgSuccessRate, int avgDurationSec) {
         int successScore = calculateSuccessScore(avgSuccessRate);
         int durationScore = calculateDurationScore(avgDurationSec);
 
