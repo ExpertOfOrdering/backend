@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Auth", description = "Authentication endpoints")
+@Tag(name = "Auth", description = "회원가입, 로그인 API")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

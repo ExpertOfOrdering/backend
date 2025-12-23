@@ -2,9 +2,7 @@ name: Deploy Backend
 
 on:
   push:
-    branches:
-      - dev
-      - main
+    branches: [dev, main]
 
 jobs:
   deploy:
@@ -17,24 +15,34 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          java-version: "21"
+          distribution: "temurin"
 
       - name: Grant execute permission
         run: chmod +x ExpertOfOrdering/gradlew
 
-      - name: Build
+      # Deploy는 테스트 때문에 멈추지 않게(테스트는 CI에서)
+      - name: Build (skip tests)
         working-directory: ExpertOfOrdering
-        run: ./gradlew clean build
+        run: ./gradlew clean bootJar -x test
 
       - name: Determine profile
         id: profile
         run: |
-          if [ "${GITHUB_REF##*/}" = "main" ]; then
-            echo "profile=prod" >> $GITHUB_OUTPUT
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            echo "profile=prod" >> "$GITHUB_OUTPUT"
           else
-            echo "profile=dev" >> $GITHUB_OUTPUT
+            echo "profile=dev" >> "$GITHUB_OUTPUT"
           fi
+
+      # bootJar 결과(plain.jar 제외) 자동 선택
+      - name: Resolve jar file
+        id: jar
+        run: |
+          JAR_PATH=$(ls -1 ExpertOfOrdering/build/libs/*.jar | grep -v plain | head -n 1)
+          echo "path=$JAR_PATH" >> "$GITHUB_OUTPUT"
+          echo "name=$(basename "$JAR_PATH")" >> "$GITHUB_OUTPUT"
+          echo "strip=3" >> "$GITHUB_OUTPUT"  # ExpertOfOrdering/build/libs/ (3개) 제거
 
       - name: Copy jar to EC2
         uses: appleboy/scp-action@v0.1.7
@@ -42,8 +50,9 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "ExpertOfOrdering/build/libs/backend-0.0.1-SNAPSHOT.jar"
-          target: "/home/ubuntu/"
+          source: ${{ steps.jar.outputs.path }}
+          target: /home/ubuntu/
+          strip_components: ${{ steps.jar.outputs.strip }}
 
       - name: Restart app on EC2
         uses: appleboy/ssh-action@v1.0.3
@@ -52,6 +61,30 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo systemctl stop expert-backend-${{ steps.profile.outputs.profile }} || true
-            mv /home/ubuntu/backend-0.0.1-SNAPSHOT.jar /home/ubuntu/app.jar
-            sudo systemctl start expert-backend-${{ steps.profile.outputs.profile }}
+            set -e
+
+            PROFILE="${{ steps.profile.outputs.profile }}"
+            SERVICE="expert-backend-${PROFILE}"
+            INCOMING="/home/ubuntu/${{ steps.jar.outputs.name }}"
+            DEST="/home/ubuntu/app-${PROFILE}.jar"
+
+            echo "PROFILE=$PROFILE"
+            echo "SERVICE=$SERVICE"
+            echo "INCOMING=$INCOMING"
+            echo "DEST=$DEST"
+
+            sudo systemctl stop "$SERVICE" || true
+
+            if [ ! -f "$INCOMING" ]; then
+              echo "Jar not found: $INCOMING"
+              ls -al /home/ubuntu
+              exit 1
+            fi
+
+            sudo mv "$INCOMING" "$DEST"
+            sudo chown ubuntu:ubuntu "$DEST"
+
+            sudo systemctl start "$SERVICE"
+
+            sudo systemctl --no-pager --full status "$SERVICE" || true
+            sudo journalctl -u "$SERVICE" -n 120 --no-pager || true
