@@ -10,5 +10,8 @@ spring:
       ddl-auto: create-drop
 
 jwt:
-  secret: "test-secret-test-secret-test-secret-1234"  # 32바이트 이상 아무거나
+  secret: "test-secret-test-secret-test-secret-1234"
   access-token-validity-ms: 3600000
+
+openai:
+  api-key: "dummy"

@@ -17,23 +17,28 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          java-version: "21"
+          distribution: "temurin"
 
       - name: Grant execute permission
         run: chmod +x ExpertOfOrdering/gradlew
 
-      - name: Build
+      # 배포 워크플로에서는 테스트/CI와 분리: 빌드만 하고 테스트는 스킵
+      - name: Build (skip tests)
         working-directory: ExpertOfOrdering
-        run: ./gradlew clean build
+        run: ./gradlew clean build -x test
 
       - name: Determine profile
         id: profile
         run: |
           if [ "${GITHUB_REF##*/}" = "main" ]; then
             echo "profile=prod" >> $GITHUB_OUTPUT
+            echo "service=expert-backend-prod" >> $GITHUB_OUTPUT
+            echo "jar=app.jar" >> $GITHUB_OUTPUT
           else
             echo "profile=dev" >> $GITHUB_OUTPUT
+            echo "service=expert-backend-dev" >> $GITHUB_OUTPUT
+            echo "jar=app-dev.jar" >> $GITHUB_OUTPUT
           fi
 
       - name: Copy jar to EC2
@@ -52,6 +57,18 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo systemctl stop expert-backend-${{ steps.profile.outputs.profile }} || true
-            mv /home/ubuntu/backend-0.0.1-SNAPSHOT.jar /home/ubuntu/app.jar
-            sudo systemctl start expert-backend-${{ steps.profile.outputs.profile }}
+            set -e
+
+            # 서비스 정지
+            sudo systemctl stop "${{ steps.profile.outputs.service }}" || true
+
+            # JAR 교체 (dev/prod 분리)
+            sudo mv /home/ubuntu/backend-0.0.1-SNAPSHOT.jar "/home/ubuntu/${{ steps.profile.outputs.jar }}"
+            sudo chown ubuntu:ubuntu "/home/ubuntu/${{ steps.profile.outputs.jar }}"
+
+            # 서비스 시작
+            sudo systemctl start "${{ steps.profile.outputs.service }}"
+
+            # 상태 확인(실패 시 로그 힌트)
+            sudo systemctl --no-pager --full status "${{ steps.profile.outputs.service }}" || true
+            sudo journalctl -u "${{ steps.profile.outputs.service }}" -n 80 --no-pager || true
