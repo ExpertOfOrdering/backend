@@ -31,7 +31,7 @@ public class MypageService {
 
         PracticeLog newLog = PracticeLog.builder()
                 .user(user)
-                .yearMonth(request.getYearMonth())
+                .month(request.getMonth())
                 .DurationSec(request.getDurationSec())
                 .accuracy(request.getAccuracy())
                 .build();
@@ -40,12 +40,12 @@ public class MypageService {
     }
 
     @Transactional
-    public Mypage getMonthlySummary(String username, String yearMonth) {
+    public Mypage getMonthlySummary(String username, Integer month) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with username: " + username));
 
         List<PracticeLog> logs =
-                practiceLogRepository.findByUserIdAndYearMonth(user.getId(), yearMonth);
+                practiceLogRepository.findByUserIdAndMonth(user.getId(), month);
 
         int totalCount = logs.size();
         
@@ -62,15 +62,13 @@ public class MypageService {
         Difficulty monthlyRecommendDifficulty;
 
         if (totalCount <= 5) {
-            // 기록이 5개 이하이면, 현재 난이도를 그대로 사용하고 업데이트하지 않음
             monthlyRecommendDifficulty = userDifficultyService.getCurrentDifficulty(username).getCurrentRecommendedDifficulty();
         } else {
-            // 기록이 5개를 초과하면, 새로운 난이도를 계산하고 현재 난이도를 업데이트
             monthlyRecommendDifficulty = recommendDifficulty(avgAccuracy, avgDurationSec);
             userDifficultyService.updateCurrentDifficulty(user.getId(), monthlyRecommendDifficulty);
         }
 
-        Optional<Mypage> existingMypage = mypageRepository.findByUser_IdAndYearMonth(user.getId(), yearMonth);
+        Optional<Mypage> existingMypage = mypageRepository.findByUser_IdAndMonth(user.getId(), month);
 
         if (existingMypage.isPresent()) {
             Mypage mypage = existingMypage.get();
@@ -79,7 +77,7 @@ public class MypageService {
         } else {
             Mypage newMypage = Mypage.builder()
                     .user(user)
-                    .yearMonth(yearMonth)
+                    .month(month)
                     .practiceCount(totalCount)
                     .avgSuccessRate(avgAccuracy)
                     .avgDurationSec(avgDurationSec)

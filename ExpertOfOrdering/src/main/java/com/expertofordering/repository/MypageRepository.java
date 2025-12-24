@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface MypageRepository extends JpaRepository<Mypage, Long> {
-    Optional<Mypage> findByUser_IdAndYearMonth(Long userId, String yearMonth);
-
+    Optional<Mypage> findByUser_IdAndMonth(Long userId, int month);
 }
