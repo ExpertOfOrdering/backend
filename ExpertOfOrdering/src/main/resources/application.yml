@@ -12,6 +12,10 @@ spring:
       hibernate:
         format_sql: true
 
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-validity-ms: ${JWT_ACCESS_TOKEN_VALIDITY_MS}
+
 springdoc:
   swagger-ui:
     enabled: true
