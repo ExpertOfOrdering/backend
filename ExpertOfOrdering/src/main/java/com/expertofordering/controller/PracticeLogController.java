@@ -36,7 +36,7 @@ public class PracticeLogController {
                             schema = @Schema(implementation = PracticeLogRequest.class),
                             examples = @ExampleObject(value = """
                                     {
-                                        "yearMonth": "2023-11",
+                                        "month": "2023-11",
                                         "durationSec": 120,
                                         "accuracy": 88
                                     }

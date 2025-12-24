@@ -12,16 +12,16 @@ public class MypageResponse {
     @Schema(description = "Mypage data ID", example = "1")
     private final Long id;
 
-    @Schema(description = "Year and month of the summary", example = "2025-10")
-    private final String yearMonth;
+    @Schema(description = "Month of the summary (1-12)", example = "11")
+    private final String month;
 
     @Schema(description = "Total practice count in the month", example = "15회")
     private final String practiceCount;
 
-    @Schema(description = "Average success rate (%)", example = "85%")
+    @Schema(description = "Average success rate (%)", example = "88%")
     private final String avgSuccessRate;
 
-    @Schema(description = "Average duration", example = "2분 0초")
+    @Schema(description = "Average duration", example = "1분 30초")
     private final String avgDuration;
 
     @Schema(description = "Recommended difficulty for the next practice", example = "중수")
@@ -29,15 +29,10 @@ public class MypageResponse {
 
     public MypageResponse(Mypage mypage) {
         this.id = mypage.getId();
-        this.yearMonth = mypage.getYearMonth();
-        
-        // "회" 붙이기
+        this.month = mypage.getMonth() + "월";
         this.practiceCount = mypage.getPracticeCount() + "회";
-        
-        // "%" 붙이기 (int -> String 변환)
         this.avgSuccessRate = mypage.getAvgSuccessRate() + "%";
         
-        // 초 -> "X분 Y초" 또는 "Y초" 변환
         int totalSec = mypage.getAvgDurationSec();
         int min = totalSec / 60;
         int sec = totalSec % 60;
