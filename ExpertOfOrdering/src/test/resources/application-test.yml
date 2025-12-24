@@ -10,3 +10,8 @@ spring:
 
 openai:
   api-key: dummy
+
+jwt:
+  secret: "01234567890123456789012345678901"  
+  access-token-expiration-ms: 3600000
+  refresh-token-expiration-ms: 1209600000
