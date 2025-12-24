@@ -81,16 +81,15 @@ public class SecurityConfig {
                         .requestMatchers("/test").permitAll()
                         .requestMatchers("/favicon.ico").permitAll()
 
-                        // swagger 공개(dev에서만)
                         .requestMatchers(
                                 "/swagger",
                                 "/swagger/**",
+                                "/swagger-ui",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**"
                         ).permitAll()
 
-                        // actuator 쓰면 열기(원하면 dev에서만)
                         .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                         .requestMatchers("/actuator/mappings").permitAll()
 
