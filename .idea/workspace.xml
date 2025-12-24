@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="147a3035-d4e5-468d-be30-566881412c47" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/.github/workflows/ci-deploy.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +91,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ExpertOfOrderingApplication (1).executor": "Run",
     "Spring Boot.ExpertOfOrderingApplication.executor": "Run",
-    "git-widget-placeholder": "feat18-사용자이름조회",
+    "git-widget-placeholder": "ec2-refactor",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/USER/Documents/GitHub/ExpertOfOrdering/backend",
     "node.js.detected.package.eslint": "true",
@@ -185,6 +189,7 @@
       <workItem from="1766209763063" duration="14885000" />
       <workItem from="1766233993757" duration="6535000" />
       <workItem from="1766500687731" duration="518000" />
+      <workItem from="1766595442852" duration="222000" />
     </task>
     <servers />
   </component>

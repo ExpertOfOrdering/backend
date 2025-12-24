@@ -1,0 +1,106 @@
+name: CI + Deploy
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ExpertOfOrdering
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      - name: Test with H2 profile
+        env:
+          SPRING_PROFILES_ACTIVE: test
+        run: ./gradlew clean test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Grant execute permission
+        run: chmod +x ExpertOfOrdering/gradlew
+
+      - name: Build (skip tests)
+        working-directory: ExpertOfOrdering
+        run: ./gradlew clean bootJar -x test
+
+      - name: Resolve jar file
+        id: jar
+        run: |
+          JAR_PATH=$(ls -1 ExpertOfOrdering/build/libs/*.jar | grep -v plain | head -n 1)
+          echo "path=$JAR_PATH" >> "$GITHUB_OUTPUT"
+          echo "name=$(basename "$JAR_PATH")" >> "$GITHUB_OUTPUT"
+          echo "strip=3" >> "$GITHUB_OUTPUT"
+
+      - name: Test SSH connectivity
+        run: nc -zv ${{ secrets.EC2_HOST }} 22
+
+      - name: Copy jar to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: ${{ steps.jar.outputs.path }}
+          target: /home/ubuntu/
+          strip_components: ${{ steps.jar.outputs.strip }}
+
+      - name: Restart app on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            SERVICE="expert-backend"
+            INCOMING="/home/ubuntu/${{ steps.jar.outputs.name }}"
+            DEST="/home/ubuntu/app.jar"
+
+            echo "SERVICE=$SERVICE"
+            echo "INCOMING=$INCOMING"
+            echo "DEST=$DEST"
+
+            if [ ! -f "$INCOMING" ]; then
+              echo "Jar not found: $INCOMING"
+              ls -al /home/ubuntu
+              exit 1
+            fi
+
+            sudo systemctl stop "$SERVICE" || true
+            sudo mv "$INCOMING" "$DEST"
+            sudo chown ubuntu:ubuntu "$DEST"
+            sudo systemctl start "$SERVICE"
+
+            sudo systemctl --no-pager --full status "$SERVICE" || true
+            sudo journalctl -u "$SERVICE" -n 120 --no-pager || true
