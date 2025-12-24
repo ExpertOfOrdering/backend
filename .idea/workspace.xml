@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="147a3035-d4e5-468d-be30-566881412c47" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/test/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/test/resources/application-test.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +60,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat8-api" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -89,7 +87,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ExpertOfOrderingApplication (1).executor": "Run",
     "Spring Boot.ExpertOfOrderingApplication.executor": "Run",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "feat18-사용자이름조회",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/USER/Documents/GitHub/ExpertOfOrdering/backend",
     "node.js.detected.package.eslint": "true",
@@ -136,6 +134,8 @@
       </method>
     </configuration>
     <configuration name="ExpertOfOrderingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <envs>
         <env name="DB_PASSWORD" value="plink2025" />
         <env name="OPENAI_API_KEY" value="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" />
@@ -201,5 +201,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

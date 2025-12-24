@@ -20,9 +20,9 @@ public class PracticeLog {
 
     // 2025-10 이런식으로 저장함
     @Column(name = "log_year_month")
-    private String yearMonth;
+    private int month;
     private int DurationSec;
-    
+
     // 주문 정확도 (0 ~ 100%)
     private int accuracy;
 }

@@ -22,7 +22,7 @@ public class Mypage {
 
     // 2025-10 이런식으로 저장함
     @Column(name = "summary_year_month")
-    private String yearMonth;
+    private int month;
 
     private int practiceCount;
 

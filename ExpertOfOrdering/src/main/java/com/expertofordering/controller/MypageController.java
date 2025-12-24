@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Mypage", description = "마이페이지(연습기록) API")
+@Tag(name = "Mypage", description = "Mypage data endpoints")
 @RestController
 @RequestMapping("/api/mypage")
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class MypageController {
 
     private final MypageService mypageService;
 
-    @Operation(summary = "Get Monthly Summary", description = "사용자의 월별 연습기록을 계산하여 반환합니다. (Calculates on the fly) <br><br> **Note:** 헤더에 JWT토큰  'Authorization: Bearer {token}' 이 형태로 넣어야 합니다!")
+    @Operation(summary = "Get Monthly Summary", description = "Retrieve the monthly practice summary for the logged-in user. (Calculates on the fly)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Successfully retrieved",
                     content = @Content(mediaType = "application/json",
@@ -35,7 +35,7 @@ public class MypageController {
                             examples = @ExampleObject(value = """
                                     {
                                         "id": 1,
-                                        "yearMonth": "2023-10",
+                                        "month": "11월",
                                         "practiceCount": "15회",
                                         "avgSuccessRate": "88%",
                                         "avgDuration": "1분 30초",
@@ -47,10 +47,10 @@ public class MypageController {
     @GetMapping
     public ResponseEntity<MypageResponse> getMonthlySummary(
             @AuthenticationPrincipal UserDetails userDetails,
-            @RequestParam String yearMonth
+            @RequestParam int month
     ) {
         String username = userDetails.getUsername();
-        Mypage mypage = mypageService.getMonthlySummary(username, yearMonth);
+        Mypage mypage = mypageService.getMonthlySummary(username, month);
         return ResponseEntity.ok(new MypageResponse(mypage));
     }
 }
