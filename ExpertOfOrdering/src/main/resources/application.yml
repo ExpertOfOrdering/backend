@@ -1,3 +1,6 @@
 spring:
   application:
     name: ExpertOfOrdering
+  profiles:
+    active: dev
+
