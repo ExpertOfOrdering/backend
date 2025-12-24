@@ -7,5 +7,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-  openai:
-    apikey: dummy
+
+openai:
+  api-key: dummy
