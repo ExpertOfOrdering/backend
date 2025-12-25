@@ -11,11 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Practice Log", description = "연습 로그 API")
 @RestController
@@ -27,7 +23,7 @@ public class PracticeLogController {
 
     @Operation(
             summary = "Save a new practice log",
-            description = "시뮬레이션 기록을 저장합니다. <br><br> **Note:** 헤더에 JWT토큰  'Authorization: Bearer {token}' 이 형태로 넣어야 합니다!",
+            description = "시뮬레이션 기록을 저장합니다.",
             requestBody = @RequestBody(
                     description = "Details of the practice session to be saved.",
                     required = true,
@@ -46,10 +42,9 @@ public class PracticeLogController {
     )
     @PostMapping
     public ResponseEntity<Void> savePracticeLog(
-            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam String username,
             @Valid @org.springframework.web.bind.annotation.RequestBody PracticeLogRequest request
     ) {
-        String username = userDetails.getUsername();
         mypageService.savePracticeLog(username, request);
         return ResponseEntity.ok().build();
     }

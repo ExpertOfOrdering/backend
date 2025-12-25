@@ -12,12 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Mypage", description = "Mypage data endpoints")
 @RestController
@@ -27,7 +22,7 @@ public class MypageController {
 
     private final MypageService mypageService;
 
-    @Operation(summary = "Get Monthly Summary", description = "Retrieve the monthly practice summary for the logged-in user. (Calculates on the fly)")
+    @Operation(summary = "Get Monthly Summary", description = "Retrieve the monthly practice summary for a user. (Calculates on the fly)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Successfully retrieved",
                     content = @Content(mediaType = "application/json",
@@ -46,10 +41,9 @@ public class MypageController {
     })
     @GetMapping
     public ResponseEntity<MypageResponse> getMonthlySummary(
-            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam String username,
             @RequestParam int month
     ) {
-        String username = userDetails.getUsername();
         Mypage mypage = mypageService.getMonthlySummary(username, month);
         return ResponseEntity.ok(new MypageResponse(mypage));
     }
