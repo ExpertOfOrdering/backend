@@ -1,7 +1,6 @@
 package com.expertofordering.controller;
 
 import com.expertofordering.dto.UserInfoResponse;
-import com.expertofordering.entity.User;
 import com.expertofordering.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,8 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +26,7 @@ public class UserController {
 
     @Operation(
             summary = "Get Current User's Name",
-            description = "현재 로그인된 사용자의 이름을 조회합니다. <br><br> **Note:** 헤더에 JWT 토큰이 필요합니다."
+            description = "현재 로그인된 사용자의 이름을 조회합니다. <br><br> **Note:** 보안 기능이 제거되어 현재 이 API는 정상 동작하지 않습니다. 사용자 ID를 직접 받는 방식으로 변경해야 합니다."
     )
     @ApiResponse(
             responseCode = "200",
@@ -43,8 +42,7 @@ public class UserController {
             )
     )
     @GetMapping("/me")
-    public ResponseEntity<UserInfoResponse> getCurrentUserName(@AuthenticationPrincipal UserDetails userDetails) {
-        User user = userService.findByUsername(userDetails.getUsername());
-        return ResponseEntity.ok(new UserInfoResponse(user));
+    public ResponseEntity<UserInfoResponse> getCurrentUserName() {
+        return ResponseEntity.ok(new UserInfoResponse("임시 사용자 이름"));
     }
 }
