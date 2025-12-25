@@ -1,16 +1,12 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  h2:
-    console:
-      enabled: false
+    url: ${DB_URL:jdbc:h2:mem:localdb;MODE=MySQL;DB_CLOSE_DELAY=-1}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
 
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQLDialect
-    open-in-view: false
     properties:
       hibernate:
         format_sql: true
@@ -20,10 +16,3 @@ springdoc:
     enabled: true
   api-docs:
     enabled: true
-
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: 3600000   # 1시간 (필요하면 조정)
-
-openai:
-  api-key: ${OPENAI_API_KEY}

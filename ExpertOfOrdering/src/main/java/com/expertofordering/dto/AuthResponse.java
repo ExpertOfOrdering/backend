@@ -2,11 +2,14 @@ package com.expertofordering.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(description = "Login response containing JWT access token")
+@Schema(description = "Login response (no JWT)")
 public record AuthResponse(
-        @Schema(
-                description = "JWT access token (put this into Authorization: Bearer <token>)",
-                example = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0In0.abc..."
-        )
-        String accessToken
+        @Schema(description = "User id", example = "1")
+        Long userId,
+
+        @Schema(description = "Display name", example = "김순자")
+        String name,
+
+        @Schema(description = "Username", example = "test")
+        String username
 ) {}
