@@ -6,8 +6,6 @@ import com.expertofordering.dto.SignupRequest;
 import com.expertofordering.entity.Role;
 import com.expertofordering.entity.User;
 import com.expertofordering.repository.UserRepository;
-import com.expertofordering.security.jwt.JwtTokenProvider;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,15 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider tokenProvider;
 
-    public AuthService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder,
-                       JwtTokenProvider tokenProvider) {
+    public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.tokenProvider = tokenProvider;
     }
 
     @Transactional
@@ -37,7 +29,8 @@ public class AuthService {
         User user = User.builder()
                 .name(req.name().trim())
                 .username(username)
-                .passwordHash(passwordEncoder.encode(req.password()))
+                // 해시 안 함: DB 컬럼명이 passwordHash여도 여기에 평문 저장
+                .passwordHash(req.password())
                 .role(Role.USER)
                 .build();
 
@@ -51,11 +44,11 @@ public class AuthService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
 
-        if (!passwordEncoder.matches(req.password(), user.getPasswordHash())) {
+        // 해시 비교 없음: 문자열 그대로 비교
+        if (user.getPasswordHash() == null || !user.getPasswordHash().equals(req.password())) {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
-        String accessToken = tokenProvider.createAccessToken(user.getUsername());
-        return new AuthResponse(accessToken);
+        return new AuthResponse(user.getId(), user.getName(), user.getUsername());
     }
 }

@@ -31,12 +31,11 @@ public class AuthController {
     })
     @PostMapping("/signup")
     public ResponseEntity<Void> signup(@Valid @RequestBody SignupRequest req) {
-        System.out.println(">>> signup called");
         authService.signup(req);
         return ResponseEntity.status(201).build();
     }
 
-    @Operation(summary = "Login", description = "Returns access token")
+    @Operation(summary = "Login", description = "Returns basic user info (no token)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Validation error"),
