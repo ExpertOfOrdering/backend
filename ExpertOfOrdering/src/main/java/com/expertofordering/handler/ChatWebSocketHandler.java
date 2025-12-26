@@ -27,14 +27,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         String prompt = message.getPayload();
         System.out.println("📩 TEXT MESSAGE RECEIVED: " + prompt);
 
-        // 즉시 상태 메시지 (선택)
-        try {
-            session.sendMessage(new TextMessage("🤖 AI가 답변을 생성 중입니다..."));
-        } catch (Exception e) {
-            log.error("status send error", e);
-            return;
-        }
-
         // 비동기 AI 호출
         CompletableFuture
                 .supplyAsync(() -> {
