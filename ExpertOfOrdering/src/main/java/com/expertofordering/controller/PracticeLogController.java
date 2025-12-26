@@ -11,9 +11,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Practice Log", description = "연습 로그 API")
+@Tag(name = "Practice Log", description = "Endpoints for managing practice logs")
 @RestController
 @RequestMapping("/api/practice-logs")
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class PracticeLogController {
 
     @Operation(
             summary = "Save a new practice log",
-            description = "시뮬레이션 기록을 저장합니다.",
+            description = "Saves the result of a single practice session.",
             requestBody = @RequestBody(
                     description = "Details of the practice session to be saved.",
                     required = true,
@@ -32,7 +34,8 @@ public class PracticeLogController {
                             schema = @Schema(implementation = PracticeLogRequest.class),
                             examples = @ExampleObject(value = """
                                     {
-                                        "month": "2023-11",
+                                        "userId": 1,
+                                        "month": 11,
                                         "durationSec": 120,
                                         "accuracy": 88
                                     }
@@ -42,10 +45,9 @@ public class PracticeLogController {
     )
     @PostMapping
     public ResponseEntity<Void> savePracticeLog(
-            @RequestParam String username,
             @Valid @org.springframework.web.bind.annotation.RequestBody PracticeLogRequest request
     ) {
-        mypageService.savePracticeLog(username, request);
+        mypageService.savePracticeLog(request);
         return ResponseEntity.ok().build();
     }
 }

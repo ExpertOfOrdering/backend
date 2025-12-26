@@ -9,6 +9,10 @@ import lombok.Data;
 @Data
 public class PracticeLogRequest {
 
+    @Schema(description = "ID of the user", example = "1")
+    @NotNull
+    private Long userId;
+
     @Schema(description = "Month of the practice (1-12)", example = "11")
     @NotNull
     @Min(1)

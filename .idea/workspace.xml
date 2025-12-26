@@ -5,8 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="147a3035-d4e5-468d-be30-566881412c47" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_jsonwebtoken_jjwt_api_0_12_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_jsonwebtoken_jjwt_impl_0_12_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_jsonwebtoken_jjwt_jackson_0_12_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_security_3_5_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_config_6_5_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_core_6_5_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_crypto_6_5_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_web_6_5_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/backend.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/backend.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/backend.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/backend.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/MypageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/MypageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/PracticeLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/PracticeLogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/UserDifficultyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/controller/UserDifficultyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/InitialDifficultyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/InitialDifficultyRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/PracticeLogRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/dto/PracticeLogRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/MypageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/MypageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/UserDifficultyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/UserDifficultyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ExpertOfOrdering/src/main/java/com/expertofordering/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +205,8 @@
       <workItem from="1766233993757" duration="6535000" />
       <workItem from="1766500687731" duration="518000" />
       <workItem from="1766595442852" duration="222000" />
-      <workItem from="1766675928094" duration="1549000" />
+      <workItem from="1766675928094" duration="4472000" />
+      <workItem from="1766712166037" duration="821000" />
     </task>
     <servers />
   </component>

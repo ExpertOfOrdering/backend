@@ -25,9 +25,9 @@ public class MypageService {
     private final UserDifficultyService userDifficultyService;
 
     @Transactional
-    public void savePracticeLog(String username, PracticeLogRequest request) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with username: " + username));
+    public void savePracticeLog(PracticeLogRequest request) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + request.getUserId()));
 
         PracticeLog newLog = PracticeLog.builder()
                 .user(user)
@@ -40,9 +40,9 @@ public class MypageService {
     }
 
     @Transactional
-    public Mypage getMonthlySummary(String username, Integer month) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with username: " + username));
+    public Mypage getMonthlySummary(Long userId, Integer month) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
 
         List<PracticeLog> logs =
                 practiceLogRepository.findByUserIdAndMonth(user.getId(), month);
@@ -62,7 +62,9 @@ public class MypageService {
         Difficulty monthlyRecommendDifficulty;
 
         if (totalCount <= 5) {
-            monthlyRecommendDifficulty = userDifficultyService.getCurrentDifficulty(username).getCurrentRecommendedDifficulty();
+            // getCurrentDifficulty가 예외를 던질 수 있으므로, Optional로 처리하는 것이 더 안전합니다.
+            // 하지만 현재 구현에 맞춰서 일단 userId로 호출하도록 수정합니다.
+            monthlyRecommendDifficulty = userDifficultyService.getCurrentDifficulty(userId).getCurrentRecommendedDifficulty();
         } else {
             monthlyRecommendDifficulty = recommendDifficulty(avgAccuracy, avgDurationSec);
             userDifficultyService.updateCurrentDifficulty(user.getId(), monthlyRecommendDifficulty);
