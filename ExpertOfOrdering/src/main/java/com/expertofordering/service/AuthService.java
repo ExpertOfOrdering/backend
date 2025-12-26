@@ -21,13 +21,17 @@ public class AuthService {
     @Transactional
     public void signup(SignupRequest req) {
         String username = req.username().trim();
+        String name = req.name().trim();
+
+        System.out.println("[AUTH][SIGNUP][REQ] username=" + username + ", name=[" + name + "]");
 
         if (userRepository.existsByUsername(username)) {
+            System.out.println("[AUTH][SIGNUP][FAIL] username already exists: " + username);
             throw new IllegalArgumentException("Username already exists");
         }
 
         User user = User.builder()
-                .name(req.name().trim())
+                .name(name)
                 .username(username)
                 // 해시 안 함: DB 컬럼명이 passwordHash여도 여기에 평문 저장
                 .passwordHash(req.password())
@@ -35,19 +39,32 @@ public class AuthService {
                 .build();
 
         userRepository.save(user);
+
+        System.out.println("[AUTH][SIGNUP][OK] id=" + user.getId()
+                + ", username=" + user.getUsername()
+                + ", name=[" + user.getName() + "]");
     }
 
     @Transactional(readOnly = true)
     public AuthResponse login(LoginRequest req) {
         String username = req.username().trim();
 
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
+        System.out.println("[AUTH][LOGIN][REQ] username=" + username);
 
-        // 해시 비교 없음: 문자열 그대로 비교
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> {
+                    System.out.println("[AUTH][LOGIN][FAIL] user not found: " + username);
+                    return new IllegalArgumentException("Invalid credentials");
+                });
+
         if (user.getPasswordHash() == null || !user.getPasswordHash().equals(req.password())) {
+            System.out.println("[AUTH][LOGIN][FAIL] password mismatch for username=" + username);
             throw new IllegalArgumentException("Invalid credentials");
         }
+
+        System.out.println("[AUTH][LOGIN][OK] id=" + user.getId()
+                + ", username=" + user.getUsername()
+                + ", name=[" + user.getName() + "]");
 
         return new AuthResponse(user.getId(), user.getName(), user.getUsername());
     }
