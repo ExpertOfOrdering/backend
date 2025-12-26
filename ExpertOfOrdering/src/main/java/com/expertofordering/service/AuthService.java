@@ -5,6 +5,7 @@ import com.expertofordering.dto.LoginRequest;
 import com.expertofordering.dto.SignupRequest;
 import com.expertofordering.entity.Role;
 import com.expertofordering.entity.User;
+import com.expertofordering.exception.ApiException;
 import com.expertofordering.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ public class AuthService {
 
         if (userRepository.existsByUsername(username)) {
             System.out.println("[AUTH][SIGNUP][FAIL] username already exists: " + username);
-            throw new IllegalArgumentException("Username already exists");
+            throw ApiException.conflict("USERNAME_ALREADY_EXISTS", "Username already exists");
         }
 
         User user = User.builder()
@@ -54,12 +55,12 @@ public class AuthService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> {
                     System.out.println("[AUTH][LOGIN][FAIL] user not found: " + username);
-                    return new IllegalArgumentException("Invalid credentials");
+                    return ApiException.unauthorized("INVALID_CREDENTIALS", "Invalid credentials");
                 });
 
         if (user.getPasswordHash() == null || !user.getPasswordHash().equals(req.password())) {
             System.out.println("[AUTH][LOGIN][FAIL] password mismatch for username=" + username);
-            throw new IllegalArgumentException("Invalid credentials");
+            throw ApiException.unauthorized("INVALID_CREDENTIALS", "Invalid credentials");
         }
 
         System.out.println("[AUTH][LOGIN][OK] id=" + user.getId()
