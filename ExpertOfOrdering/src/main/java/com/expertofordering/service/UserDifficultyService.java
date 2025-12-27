@@ -60,7 +60,7 @@ public class UserDifficultyService {
     private Difficulty calculateDifficultyFromScore(int score) {
         if (score <= 4) {
             return Difficulty.초보;
-        } else if (score <= 6) {
+        } else if (score <= 5) {
             return Difficulty.중수;
         } else {
             return Difficulty.달인;
